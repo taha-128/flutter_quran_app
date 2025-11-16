@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
+import 'package:flutter_quran_app/core/theme/app_assets.dart';
+import 'package:flutter_quran_app/core/theme/app_styles.dart';
+import 'package:flutter_quran_app/features/quran_reciters/logic/quran_readers_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+class RecitersSearchBar extends StatelessWidget {
+  const RecitersSearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var outlineInputBorder = OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.circular(100),
+    );
+    return SizedBox(
+      width: context.screenWidth * .8,
+      child: Material(
+        elevation: 2,
+        borderRadius: BorderRadius.circular(100),
+        child: TextField(
+          style: AppStyles.style20harmattan.copyWith(color: Colors.black),
+          controller: context.read<QuranReadersCubit>().searchController,
+          onChanged: (value) {
+            context.read<QuranReadersCubit>().onSearch(value);
+          },
+          decoration: InputDecoration(
+            hintText: 'ابحث باسم القارئ',
+            hintStyle: AppStyles.style20harmattan,
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 8.h,
+              horizontal: 24.w,
+            ),
+            border: outlineInputBorder,
+            enabledBorder: outlineInputBorder,
+            focusedBorder: outlineInputBorder,
+            filled: true,
+            fillColor: const Color(0xffE7E7E7),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(12),
+              child: SvgPicture.asset(
+                AppAssets.svgsSearchIcon,
+                width: 10.w,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

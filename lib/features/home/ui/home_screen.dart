@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_quran_app/core/helpers/app_initializer.dart';
+import 'package:flutter_quran_app/features/home/ui/layouts/home_screen_body_mobile.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    Future.delayed(const Duration(milliseconds: 600), () {
+      AppInitializer.homeInit();
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(body: HomeScreenBodyMobile());
+  }
+}

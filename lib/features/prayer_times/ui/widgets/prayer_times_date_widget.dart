@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/date_time_ext.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/int_extensions.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/theme/app_assets.dart';
+import '../../../../core/theme/app_styles.dart';
+import '../../data/models/prayer_times_model.dart';
+
+class PrayerTimesDateWidget extends StatelessWidget {
+  const PrayerTimesDateWidget({
+    super.key,
+    required this.prayers,
+  });
+
+  final PrayerTimesResponseModel prayers;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 28),
+      width: context.screenWidth * .82,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(100),
+        image: const DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(AppAssets.imagesGreenColor),
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10.w,
+            children: [
+              Text(
+                DateTime.now().toArabicWeekdayName,
+                style: AppStyles.style26expo,
+              ),
+              Text(
+                title1,
+                style: AppStyles.style24harmattan.copyWith(
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
+          Text(
+            title2,
+            style: AppStyles.style24harmattan.copyWith(
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          
+        ],
+      ),
+    );
+  }
+
+  String get title1 {
+    String day = DateTime.now().day.toArabicNums;
+    if (DateTime.now().day < 10) {
+      day = '٠$day';
+    }
+    return '$day ${DateTime.now().arabicMonth}';
+  }
+
+  String get title2 {
+    return '${prayers.hijriDate.day.toArabicNums} ${prayers.hijriDate.monthName} ${prayers.hijriDate.year.toArabicNums}هـ';
+  }
+}
