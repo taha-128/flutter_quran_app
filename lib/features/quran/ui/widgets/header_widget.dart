@@ -33,7 +33,7 @@ class FullHeaderWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     getSurahNameArabic(surahNumber),
                     style: context.headlineMedium.copyWith(
-                      fontSize: context.isTablet ? 20.sp : null,
+                      fontSize: context.isTablet ? 16.sp : null,
                     ),
                   ),
                 ),
@@ -70,8 +70,9 @@ class MinHeaderWidget extends StatelessWidget {
                 child: Text(
                   textAlign: TextAlign.center,
                   getSurahNameArabic(surahNumber),
-                  style: context.labelSmall
-                      .copyWith(fontSize: 14.sp), //TODO: 16.sp in mobile
+                  style: context.labelSmall.copyWith(
+                    fontSize: context.isTablet ? 10.sp : 14.sp,
+                  ),
                 ),
               ),
             ],

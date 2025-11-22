@@ -33,7 +33,7 @@ class TabletSectionsItem extends StatelessWidget {
             const Spacer(flex: 2),
             Text(
               section.title,
-              style: AppStyles.style28l,
+              style: AppStyles.style28l.copyWith(color: Colors.white),
             ),
             const Spacer(),
             VectorGraphic(

@@ -21,6 +21,7 @@ class HomeScreenBodyMobile extends StatelessWidget {
         ),
       ),
       child: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(child: TopBar(height: 160.h)),
           SliverPadding(

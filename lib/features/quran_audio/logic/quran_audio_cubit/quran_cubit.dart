@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quran_app/core/di/di.dart';
@@ -18,9 +20,15 @@ class QuranAudioCubit extends Cubit<QuranState> {
   Future<List<SurahAudioModel>> getQuran(int qareeId) async {
     emit(QuranLoading());
     try {
+      int moshafIndex = 0;
+      String url = '${reciter.moshafList[moshafIndex].server}/$qareeId';
+
       var response = await getIt<DioConsumer>().get(
-        '${reciter.moshafList[0].server}/$qareeId',
+        url,
+        headers: {'content-type': 'application/json'},
       );
+
+      log(response.toString());
 
       List quranAsMaps = response.data['data'][ApiKeys.audioFiles];
 

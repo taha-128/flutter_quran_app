@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../data/models/prayer_times_model.dart';
-import 'prayer_time_widget.dart';
+import 'mobile_prayer_time_widget.dart';
 
 class PrayerTimesGridView extends StatelessWidget {
-  const PrayerTimesGridView(
-      {super.key, required this.prayers, required this.nextPrayer});
+  const PrayerTimesGridView({
+    super.key,
+    required this.prayers,
+    required this.nextPrayer,
+  });
+
   final PrayerTimesResponseModel prayers;
   final PrayerTimeModel nextPrayer;
   @override
@@ -15,9 +20,9 @@ class PrayerTimesGridView extends StatelessWidget {
       itemCount: prayers.prayerTimes.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisExtent: 130.h,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 10,
+        mainAxisExtent: context.isTablet ? 160.h : 130.h,
+        crossAxisSpacing: context.isTablet ? 24 : 16,
+        mainAxisSpacing: context.isTablet ? 20 : 10,
       ),
       itemBuilder: (context, index) {
         return PrayerTimeWidget(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
-import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/features/prayer_times/data/models/prayer_times_model.dart';
-import 'package:flutter_quran_app/features/prayer_times/ui/widgets/prayer_times_grid_view.dart';
 
+import '../../../../core/theme/app_assets.dart';
 import '../../logic/prayer_times_cubit/prayer_times_cubit.dart';
 import 'prayer_times_date_widget.dart';
+import 'prayer_times_grid_view.dart';
 import 'prayer_times_header.dart';
 import 'user_location_widget.dart';
 
@@ -28,6 +28,7 @@ class PrayerTimesScreenBody extends StatelessWidget {
           height: double.infinity,
         ),
         CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: PrayerTimesHeader(

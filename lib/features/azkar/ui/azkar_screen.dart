@@ -62,6 +62,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
         width: double.infinity,
         height: double.infinity,
         child: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(child: SizedBox(height: 65.h)),
             SliverToBoxAdapter(

@@ -34,7 +34,11 @@ class UserLocationWidget extends StatelessWidget {
           Expanded(
             child: Text(
               location,
-              style: AppStyles.style16.copyWith(fontWeight: FontWeight.bold),
+              style: AppStyles.style16.copyWith(
+                fontWeight:
+                    context.isTablet ? FontWeight.normal : FontWeight.bold,
+                fontSize: context.isTablet ? 12.sp : null,
+              ),
             ),
           ),
         ],

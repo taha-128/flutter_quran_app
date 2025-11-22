@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quran_app/core/helpers/alert_helper.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/app_navigator.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/date_time_ext.dart';
 import 'package:flutter_quran_app/core/helpers/fonts_helper.dart';
 import 'package:flutter_quran_app/core/theme/app_styles.dart';
 import 'package:flutter_quran_app/features/quran/data/models/selected_verse_model.dart';
+import 'package:flutter_quran_app/features/quran/data/services/bookmark_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/surahs_tashkeel.dart';
 
 class BookmarkItem extends StatefulWidget {
   final VerseModel verse;
   final VoidCallback onTap;
-  
 
   const BookmarkItem({
     super.key,
     required this.verse,
     required this.onTap,
- 
   });
 
   @override
@@ -42,6 +43,16 @@ class _BookmarkItemState extends State<BookmarkItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
+      onLongPress: () {
+        setState(() {
+          BookmarkService.removeBookmark(widget.verse);
+        });
+        context.pop();
+        AlertHelper.showSuccessAlert(
+          context,
+          message: 'تم ازالة الآية من المحفوظات',
+        );
+      },
       child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(

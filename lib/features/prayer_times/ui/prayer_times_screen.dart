@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quran_app/core/helpers/alert_helper.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
+import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/core/theme/app_colors.dart';
 import 'package:flutter_quran_app/core/theme/app_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -126,7 +127,8 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
             return _PermissionPanel(
               icon: Icons.location_disabled,
               title: 'خدمة الموقع متوقفة',
-              message: 'فعّل خدمة الموقع لعرض مواعيد الصلاة بدقة.',
+              message:
+                  'فعّل خدمة الموقع من شريط الإشعارات أو الإعدادات لتحديد اتجاه القبلة.',
               primaryLabel: 'فتح إعدادات الموقع',
               onPrimaryPressed: _openLocationSettings,
               secondaryLabel: 'تحديث الحالة',
@@ -196,52 +198,72 @@ class _PermissionPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 64, color: AppColors.green),
-            SizedBox(height: 16.h),
-            Text(
-              title,
-              style: AppStyles.style22u.copyWith(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              message,
-              style: AppStyles.style16.copyWith(
-                color: Colors.black,
+    return Container(
+      width: context.screenWidth,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(AppAssets.imagesFullWhiteBackground),
+        ),
+      ),
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 64, color: AppColors.green),
+              SizedBox(height: 16.h),
+              Text(
+                title,
+                style: AppStyles.style22u.copyWith(color: Colors.black),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20.h),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: onPrimaryPressed,
-                child: Text(
-                  primaryLabel,
-                  style: AppStyles.style16.copyWith(color: Colors.white),
+              SizedBox(height: 8.h),
+              Text(
+                message,
+                style: AppStyles.style16.copyWith(
+                  color: Colors.black,
                 ),
+                textAlign: TextAlign.center,
               ),
-            ),
-            if (secondaryLabel != null && onSecondaryPressed != null) ...[
-              SizedBox(height: 10.h),
+              SizedBox(height: 20.h),
               SizedBox(
                 width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: onSecondaryPressed,
-                  child: Text(
-                    secondaryLabel!,
-                    style: AppStyles.style16.copyWith(color: Colors.black),
+                child: ElevatedButton(
+                  onPressed: onPrimaryPressed,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.green,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: context.isTablet ? 8 : 0),
+                    child: Text(
+                      primaryLabel,
+                      style: AppStyles.style16.copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
+              if (secondaryLabel != null && onSecondaryPressed != null) ...[
+                SizedBox(height: 10.h),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: onSecondaryPressed,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: context.isTablet ? 8 : 0),
+                      child: Text(
+                        secondaryLabel!,
+                        style: AppStyles.style16.copyWith(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

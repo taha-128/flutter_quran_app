@@ -21,13 +21,13 @@ class FullPageDetails extends StatelessWidget {
         Text(
           getJuzNumber(surahNumber, firstVerse).toJuzName,
           style: context.labelSmall.copyWith(
-            fontSize: context.isTablet ? 20.sp : null,
+            fontSize: context.isTablet ? 16.sp : null,
           ),
         ),
         Text(
           'سورة ${getSurahNameArabic(surahNumber)}',
           style: context.labelSmall.copyWith(
-            fontSize: context.isTablet ? 20.sp : null,
+            fontSize: context.isTablet ? 16.sp : null,
           ),
         ),
       ],

@@ -18,7 +18,7 @@ class TabletQuranTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<QuranCubit>();
     return Padding(
-      padding: EdgeInsets.only(top: 8.h, right: 8.w, left: 8.w),
+      padding: EdgeInsets.only(top: 8.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

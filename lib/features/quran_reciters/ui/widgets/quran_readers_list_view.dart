@@ -17,6 +17,7 @@ class ReadersListView extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
+          fit: BoxFit.cover,
           image: AssetImage(AppAssets.imagesWhiteBackground),
         ),
       ),

@@ -42,10 +42,10 @@ class RecitersSearchBar extends StatelessWidget {
             filled: true,
             fillColor: const Color(0xffE7E7E7),
             suffixIcon: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(context.isTablet ? 24 : 12),
               child: SvgPicture.asset(
                 AppAssets.svgsSearchIcon,
-                width: 10.w,
+                width: context.isTablet ? 20.w : 10.w,
               ),
             ),
           ),

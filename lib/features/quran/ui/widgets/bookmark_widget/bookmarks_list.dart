@@ -27,6 +27,7 @@ class BookmarksList extends StatelessWidget {
         return BookmarkItem(
           verse: verse,
           onTap: () => onNavigateToVerse(verse),
+          
         );
       },
       separatorBuilder: (context, index) =>

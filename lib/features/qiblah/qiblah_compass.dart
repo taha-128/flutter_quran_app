@@ -112,7 +112,8 @@ class _QiblahCompassState extends State<QiblahCompass>
           return _PermissionPanel(
             icon: Icons.location_disabled,
             title: 'خدمة الموقع متوقفة',
-            message: 'فعّل خدمة الموقع لتحديد اتجاه القبلة بدقة.',
+            message:
+                'فعّل خدمة الموقع من شريط الإشعارات أو الإعدادات لتحديد اتجاه القبلة.',
             primaryLabel: 'فتح إعدادات الموقع',
             onPrimaryPressed: _openLocationSettings,
             secondaryLabel: 'تحديث الحالة',
@@ -208,7 +209,7 @@ class _QiblahCompassState extends State<QiblahCompass>
               child: Stack(
                 children: [
                   Positioned.fill(
-                    bottom: 240.h,
+                    bottom: context.isTablet ? 160.h : 240.h,
                     child: Align(
                       alignment: Alignment.center,
                       child: Icon(
@@ -225,7 +226,9 @@ class _QiblahCompassState extends State<QiblahCompass>
                       painter: CompassCustomPainter(angle: animation!.value),
                       child: Image.asset(
                         AppAssets.imagesKaaba,
-                        width: context.screenWidth * .25,
+                        width: context.isTablet
+                            ? context.screenWidth * .14
+                            : context.screenWidth * .25,
                       ),
                     ),
                   ),
@@ -268,11 +271,13 @@ class _PermissionPanel extends StatelessWidget {
           children: [
             Icon(icon, size: 64, color: AppColors.green),
             SizedBox(height: 16.h),
-            Text(title,
-                style: AppStyles.style22u.copyWith(
-                  color: context.primaryColor,
-                ),
-                textAlign: TextAlign.center),
+            Text(
+              title,
+              style: AppStyles.style22u.copyWith(
+                color: context.primaryColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
             SizedBox(height: 8.h),
             Text(
               message,
@@ -289,10 +294,14 @@ class _PermissionPanel extends StatelessWidget {
                   backgroundColor: AppColors.green,
                 ),
                 onPressed: onPrimaryPressed,
-                child: Text(
-                  primaryLabel,
-                  style: AppStyles.style16.copyWith(
-                    color: Colors.white,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: context.isTablet ? 8 : 0),
+                  child: Text(
+                    primaryLabel,
+                    style: AppStyles.style16.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -303,10 +312,14 @@ class _PermissionPanel extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: onSecondaryPressed,
-                  child: Text(
-                    secondaryLabel!,
-                    style: AppStyles.style16.copyWith(
-                      color: context.primaryColor,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: context.isTablet ? 8 : 0),
+                    child: Text(
+                      secondaryLabel!,
+                      style: AppStyles.style16.copyWith(
+                        color: context.primaryColor,
+                      ),
                     ),
                   ),
                 ),
