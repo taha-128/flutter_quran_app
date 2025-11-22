@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/int_extensions.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/core/theme/app_colors.dart';
 import 'package:flutter_quran_app/core/theme/app_styles.dart';
@@ -53,8 +54,8 @@ class _QuarnPagesListState extends State<QuarnPagesList> {
             Transform.rotate(
               angle: pi / 4,
               child: Container(
-                height: 18.w,
-                width: 18.w,
+                height: context.isTablet ? 14.w : 18.w,
+                width: context.isTablet ? 14.w : 18.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color:
@@ -67,10 +68,7 @@ class _QuarnPagesListState extends State<QuarnPagesList> {
               style: AppStyles.style14u.copyWith(fontSize: 12.sp),
             ),
             if (_selectedIndex == index)
-              SvgPicture.asset(
-                AppAssets.svgsStar,
-                width: 80.w,
-              ),
+              SvgPicture.asset(AppAssets.svgsStar, width: 80.w),
           ],
         );
       },

@@ -18,51 +18,51 @@ class TabletQuranTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<QuranCubit>();
     return Padding(
-      padding: EdgeInsets.only(top: 22.h),
+      padding: EdgeInsets.only(top: 8.h, right: 8.w, left: 8.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: EdgeInsets.symmetric(horizontal: 2.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return BlocProvider.value(
-                          value: cubit,
-                          child: const QuranFehresDialog(),
-                        );
-                      },
-                    );
-                  },
+                  onPressed: () => showFehresDialog(context, cubit),
                   icon: SvgPicture.asset(AppAssets.svgsMenu, height: 30.h),
                 ),
                 const MobileQuranSearch(),
                 IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => BlocProvider.value(
-                        value: context.read<ThemeCubit>(),
-                        child: const ThemeChangerDialog(),
-                      ),
-                    );
-                  },
-                  icon: SvgPicture.asset(AppAssets.svgsSettings, height: 28.h),
+                  onPressed: () => showThemeDialog(context),
+                  icon: SvgPicture.asset(AppAssets.svgsSettings, height: 30.h),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: 80.h,
-            width: double.infinity,
-            child: const QuranSurahList(),
-          ),
+          const Expanded(child: QuranSurahList()),
         ],
+      ),
+    );
+  }
+
+  void showFehresDialog(BuildContext context, QuranCubit cubit) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return BlocProvider.value(
+          value: cubit,
+          child: const QuranFehresDialog(),
+        );
+      },
+    );
+  }
+
+  void showThemeDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => BlocProvider.value(
+        value: context.read<ThemeCubit>(),
+        child: const ThemeChangerDialog(),
       ),
     );
   }

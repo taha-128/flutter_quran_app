@@ -7,7 +7,10 @@
         {
             "name": "flutter_quran_app",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--no-enable-impeller"
+            ]
         },
         {
             "name": "flutter_quran_app (profile mode)",
@@ -17,26 +20,6 @@
         },
         {
             "name": "flutter_quran_app (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "quran-1.2.2",
-            "cwd": "packages\\quran-1.2.2",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "quran-1.2.2 (profile mode)",
-            "cwd": "packages\\quran-1.2.2",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "quran-1.2.2 (release mode)",
-            "cwd": "packages\\quran-1.2.2",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

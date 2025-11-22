@@ -70,9 +70,25 @@ class AppAssets {
   /// assets/lotties/circular_indicator.json
   static const String lottiesCircularIndicator = "assets/lotties/circular_indicator.json";
 
-  /// Assets for svgsAzkarSectionIcon
-  /// assets/svgs/azkar_section_icon.svg
-  static const String svgsAzkarSectionIcon = "assets/svgs/azkar_section_icon.svg";
+  /// Assets for sectionsAzkar
+  /// assets/sections/azkar.svg
+  static const String sectionsAzkar = "assets/sections/azkar.svg";
+
+  /// Assets for sectionsPrayer
+  /// assets/sections/prayer.svg
+  static const String sectionsPrayer = "assets/sections/prayer.svg";
+
+  /// Assets for sectionsQiblah
+  /// assets/sections/qiblah.svg
+  static const String sectionsQiblah = "assets/sections/qiblah.svg";
+
+  /// Assets for sectionsQuran
+  /// assets/sections/quran.svg
+  static const String sectionsQuran = "assets/sections/quran.svg";
+
+  /// Assets for sectionsReciters
+  /// assets/sections/reciters.svg
+  static const String sectionsReciters = "assets/sections/reciters.svg";
 
   /// Assets for svgsBookmark
   /// assets/svgs/bookmark.svg
@@ -90,25 +106,9 @@ class AppAssets {
   /// assets/svgs/moon_icon.svg
   static const String svgsMoonIcon = "assets/svgs/moon_icon.svg";
 
-  /// Assets for svgsPrayerTimesSectionIcon
-  /// assets/svgs/prayer_times_section_icon.svg
-  static const String svgsPrayerTimesSectionIcon = "assets/svgs/prayer_times_section_icon.svg";
-
   /// Assets for svgsPrayersTitle
   /// assets/svgs/prayers_title.svg
   static const String svgsPrayersTitle = "assets/svgs/prayers_title.svg";
-
-  /// Assets for svgsQiblahSectionIcon
-  /// assets/svgs/qiblah_section_icon.svg
-  static const String svgsQiblahSectionIcon = "assets/svgs/qiblah_section_icon.svg";
-
-  /// Assets for svgsQuranSectionIcon
-  /// assets/svgs/quran_section_icon.svg
-  static const String svgsQuranSectionIcon = "assets/svgs/quran_section_icon.svg";
-
-  /// Assets for svgsRecitersSectionIcon
-  /// assets/svgs/reciters_section_icon.svg
-  static const String svgsRecitersSectionIcon = "assets/svgs/reciters_section_icon.svg";
 
   /// Assets for svgsSearch
   /// assets/svgs/search.svg

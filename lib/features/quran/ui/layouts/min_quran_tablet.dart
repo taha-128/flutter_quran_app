@@ -62,70 +62,66 @@ class _MinQuranTabletState extends State<MinQuranTablet> {
 
   @override
   Widget build(BuildContext context) {
+    const flex1 = 1;
+    const flex2 = 3;
     return Column(
       children: [
         const Expanded(
-          flex: 2,
+          flex: flex1,
           child: TabletQuranTopBar(),
         ),
         Expanded(
-          flex: 7,
+          flex: flex2,
           child: GestureDetector(
             onDoubleTap: () {
               context.read<QuranCubit>().changeLayout();
             },
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h),
-              child: PageView.builder(
-                controller: context.read<QuranCubit>().minQuranController,
-                itemCount: totalPagesCount,
-                onPageChanged: (value) {
-                  context.read<QuranCubit>().onQuranPageChanged(value);
-                },
-                itemBuilder: (context, index) {
-                  return BlocBuilder<ThemeCubit, ThemeState>(
-                    builder: (context, state) {
-                      return Container(
-                        alignment: index > 1
-                            ? index.isEven
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight
-                            : Alignment.center,
-                        margin: EdgeInsets.only(left: index.isOdd ? 8 : 0),
-                        decoration: BoxDecoration(
-                          color: context.onPrimary,
-                          borderRadius: borderRadius(index),
-                          border: buildBorder(index),
-                        ),
-                        child: TabletMinPageRichText(pageNumber: index + 1),
-                      );
-                    },
-                  );
-                },
-              ),
+            child: PageView.builder(
+              controller: context.read<QuranCubit>().minQuranController,
+              itemCount: totalPagesCount,
+              onPageChanged: (value) {
+                context.read<QuranCubit>().onQuranPageChanged(value);
+              },
+              itemBuilder: (context, index) {
+                return BlocBuilder<ThemeCubit, ThemeState>(
+                  builder: (context, state) {
+                    return Container(
+                      alignment: index > 1
+                          ? index.isEven
+                              ? Alignment.centerLeft
+                              : Alignment.centerRight
+                          : Alignment.center,
+                      margin: EdgeInsets.only(left: index.isOdd ? 8 : 0),
+                      decoration: BoxDecoration(
+                        color: context.onPrimary,
+                        borderRadius: borderRadius(index),
+                        border: buildBorder(index),
+                      ),
+                      child: TabletMinPageRichText(pageNumber: index + 1),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IntrinsicHeight(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.w),
-                  child: const TabletMinQuranBottomSection(),
-                ),
-              ),
-              const Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: QuarnPagesList(),
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
-          ),
+        SizedBox(height: 10.h),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              height: 80.h,
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: const TabletMinQuranBottomSection(),
+            ),
+            SizedBox(height: 6.h),
+            SizedBox(
+              height: 50.h,
+              width: double.infinity,
+              child: const QuarnPagesList(),
+            ),
+            SizedBox(height: 10.h),
+          ],
         ),
       ],
     );

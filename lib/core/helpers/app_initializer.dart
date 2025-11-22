@@ -12,7 +12,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import '../../bloc_observer.dart';
 import '../services/prayer_times_cache.dart';
 import 'quran_json_helper.dart';
-
+  
 class AppInitializer {
   static Future<void> mainInit() async {
     setupGetIt();

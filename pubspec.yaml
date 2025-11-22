@@ -3,13 +3,13 @@ description: "Quran App."
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.1.9+19
+version: 1.1.10+20
 
 environment:
   sdk: ^3.6.0
 
 dependencies:
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.8 
   device_info_plus: 11.3.0
   dio: ^5.9.0
   flutter:
@@ -59,11 +59,13 @@ flutter:
   assets:
     - assets/json/
     - assets/images/
-    - path: assets/svgs/
+    - assets/svgs/
+    - path: assets/sections/
       transformers:
         - package: vector_graphics_compiler
     - assets/lotties/
     - assets/fonts/qcf4/
+    - shorebird.yaml
 
   fonts:
     - family: uthmanic
@@ -91,6 +93,7 @@ flutter_assets:
   assets_path:
     - assets/images/
     - assets/svgs/
+    - assets/sections/
     - assets/lotties/
 
   output_path: lib/core/theme/

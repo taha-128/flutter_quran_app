@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quran_app/core/helpers/extensions/app_navigator.dart';
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/core/theme/app_styles.dart';
-import 'package:flutter_quran_app/features/quran/ui/quran_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../azkar/ui/azkar_sections_screen.dart';
-import '../../../prayer_times/ui/prayer_times_screen.dart';
-import '../../../qiblah/qiblah_screen.dart';
-import '../../../quran_reciters/ui/quran_readers_screen.dart';
 import '../../data/app_sections_enum.dart';
 
 class MobileSectionsItem extends StatelessWidget {
@@ -25,29 +19,7 @@ class MobileSectionsItem extends StatelessWidget {
     return ZoomTapAnimation(
       end: .98,
       onTap: () {
-        switch (section) {
-          case AppSection.readers:
-            context.push(const QuranReadersScreen(),
-                direction: NavigationDirection.downToUp);
-            return;
-          case AppSection.azkar:
-            context.push(const AzkarSectionsScreen(),
-                direction: NavigationDirection.downToUp);
-            return;
-          case AppSection.prayersTime:
-            context.push(const PrayerTimesScreen(),
-                direction: NavigationDirection.downToUp);
-            return;
-
-          case AppSection.qiblah:
-            context.push(const QiblahScreen(),
-                direction: NavigationDirection.downToUp);
-            return;
-          case AppSection.quran:
-            context.push(const QuranScreen(),
-                direction: NavigationDirection.downToUp);
-            return;
-        }
+        section.push(context);
       },
       child: Container(
         padding: EdgeInsets.all(16.w),

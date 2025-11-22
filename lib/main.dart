@@ -23,7 +23,7 @@ void main() async {
   final bool showCustomSplash = await isAndroid12Plus();
 
   runApp(
-    MultiBlocProvider(
+    MultiBlocProvider(  
       providers: [
         BlocProvider(create: (_) => QuranPlayerCubit()),
         BlocProvider(create: (_) => ThemeCubit()),
