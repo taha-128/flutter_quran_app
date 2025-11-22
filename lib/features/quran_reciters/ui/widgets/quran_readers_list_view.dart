@@ -22,6 +22,7 @@ class ReadersListView extends StatelessWidget {
         ),
       ),
       child: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: SizedBox(
