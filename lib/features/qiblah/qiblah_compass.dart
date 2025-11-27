@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
@@ -36,37 +35,79 @@ class _QiblahCompassState extends State<QiblahCompass>
   bool _wasAligned = false;
   static const double _alignmentThreshold = 10.0;
 
-  Permission get _platformLocationPermission =>
-      Platform.isIOS ? Permission.locationWhenInUse : Permission.location;
-
   Future<void> _refreshStatus() async {
-    final service = await Geolocator.isLocationServiceEnabled();
-    final status = await _platformLocationPermission.status;
-    if (!mounted) return;
-    setState(() {
-      serviceEnabled = service;
-      hasPermission = status.isGranted;
-      permissionPermanentlyDenied = status.isPermanentlyDenied;
-    });
+    try {
+      // Check location service status
+      final service = await Geolocator.isLocationServiceEnabled();
+      
+      // Check permission status using Geolocator (more reliable)
+      LocationPermission permission = await Geolocator.checkPermission();
+      
+      if (!mounted) return;
+      
+      setState(() {
+        serviceEnabled = service;
+        hasPermission = permission == LocationPermission.whileInUse || 
+                       permission == LocationPermission.always;
+        permissionPermanentlyDenied = permission == LocationPermission.deniedForever;
+      });
+    } on Exception catch (e) {
+      print('error checking location status: $e');
+      if (!mounted) return;
+      setState(() {
+        serviceEnabled = false;
+        hasPermission = false;
+      });
+    }
   }
 
   Future<void> _requestPermission() async {
-    final result = await _platformLocationPermission.request();
-    await _refreshStatus();
-    if (mounted) {
-      if (result.isGranted) {
+    if (!mounted) return;
+    
+    // Check current permission status using Geolocator
+    LocationPermission permission = await Geolocator.checkPermission();
+    
+    // If already granted, just refresh
+    if (permission == LocationPermission.whileInUse || 
+        permission == LocationPermission.always) {
+      await _refreshStatus();
+      if (mounted) {
         AlertHelper.showSuccessAlert(context, message: 'تم منح صلاحية الموقع.');
-      } else if (result.isPermanentlyDenied) {
-        AlertHelper.showWarningAlert(
-          context,
-          message: 'الرجاء تفعيل صلاحية الموقع من الإعدادات.',
-        );
-      } else {
-        AlertHelper.showWarningAlert(
-          context,
-          message: 'تم رفض صلاحية الموقع. لن تعمل ميزة تحديد القبلة.',
-        );
       }
+      return;
+    }
+    
+    // If permanently denied, open settings
+    if (permission == LocationPermission.deniedForever) {
+      if (mounted) {
+        await _openAppSettings();
+      }
+      return;
+    }
+    
+    // Request permission using Geolocator (more reliable)
+    permission = await Geolocator.requestPermission();
+    await _refreshStatus();
+    
+    if (!mounted) return;
+    
+    if (permission == LocationPermission.whileInUse || 
+        permission == LocationPermission.always) {
+      AlertHelper.showSuccessAlert(context, message: 'تم منح صلاحية الموقع.');
+    } else if (permission == LocationPermission.deniedForever) {
+      setState(() {
+        permissionPermanentlyDenied = true;
+      });
+      AlertHelper.showWarningAlert(
+        context,
+        message: 'الرجاء تفعيل صلاحية الموقع من الإعدادات.',
+      );
+    } else if (permission == LocationPermission.denied) {
+      // Permission was denied but not permanently
+      AlertHelper.showWarningAlert(
+        context,
+        message: 'تم رفض صلاحية الموقع. لن تعمل ميزة تحديد القبلة.',
+      );
     }
   }
 
@@ -84,14 +125,26 @@ class _QiblahCompassState extends State<QiblahCompass>
 
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _refreshStatus();
+    _initializePermissions();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
     animation = Tween(begin: 0.0, end: 0.0).animate(_animationController!);
-    super.initState();
+  }
+
+  Future<void> _initializePermissions() async {
+    await _refreshStatus();
+    // Auto-request permission if not granted and not permanently denied
+    if (!hasPermission && !permissionPermanentlyDenied && serviceEnabled) {
+      // Wait a bit for UI to render, then request
+      await Future.delayed(const Duration(milliseconds: 300));
+      if (mounted) {
+        await _requestPermission();
+      }
+    }
   }
 
   @override
@@ -155,11 +208,11 @@ class _QiblahCompassState extends State<QiblahCompass>
         return StreamBuilder(
           stream: FlutterQiblah.qiblahStream,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Lottie.asset(AppAssets.lottiesCircularIndicator),
-              );
-            }
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return Center(
+            //     child: Lottie.asset(AppAssets.lottiesCircularIndicator),
+            //   );
+            // }
 
             if (snapshot.hasError || snapshot.data == null) {
               return _PermissionPanel(
