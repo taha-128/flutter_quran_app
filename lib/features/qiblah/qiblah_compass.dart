@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
@@ -35,9 +36,13 @@ class _QiblahCompassState extends State<QiblahCompass>
   bool _wasAligned = false;
   static const double _alignmentThreshold = 10.0;
 
+  Permission get _platformLocationPermission =>
+      Platform.isIOS ? Permission.locationWhenInUse : Permission.location;
+
   Future<void> _refreshStatus() async {
-    final service = await Permission.location.serviceStatus.isEnabled;
-    final status = await Permission.location.status;
+    final service = await Geolocator.isLocationServiceEnabled();
+    final status = await _platformLocationPermission.status;
+    if (!mounted) return;
     setState(() {
       serviceEnabled = service;
       hasPermission = status.isGranted;
@@ -46,7 +51,7 @@ class _QiblahCompassState extends State<QiblahCompass>
   }
 
   Future<void> _requestPermission() async {
-    final result = await Permission.location.request();
+    final result = await _platformLocationPermission.request();
     await _refreshStatus();
     if (mounted) {
       if (result.isGranted) {
