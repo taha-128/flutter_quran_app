@@ -50,16 +50,19 @@ class PrayerTimesScreenBody extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 20)),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.screenWidth * 0.1,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: UserLocationWidget(
-                  location: prayers.location.arabicAddress,
+            if (prayers.location.arabicAddress != null ||
+                prayers.location.address != null)
+              SliverPadding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.screenWidth * 0.1,
+                ),
+                sliver: SliverToBoxAdapter(
+                  child: UserLocationWidget(
+                    location: prayers.location.arabicAddress ??
+                        prayers.location.address!,
+                  ),
                 ),
               ),
-            ),
             const SliverToBoxAdapter(child: SizedBox(height: 40)),
           ],
         ),

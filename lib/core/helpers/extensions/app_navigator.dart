@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 enum NavigationDirection { rightToLeft, leftToRight, upToDown, downToUp }
 
@@ -9,41 +10,54 @@ extension AppNavigator on BuildContext {
 
   bool get canPop => Navigator.canPop(this);
 
-  Future push(Widget screen, {NavigationDirection? direction}) {
-    return Navigator.push(
-      this,
-      Platform.isIOS
-          ? CupertinoPageRoute(builder: (_) => screen)
-          : MyCustomRoute(
-              screen: screen,
-              direction: direction ?? NavigationDirection.rightToLeft,
-            ),
-    );
+  void push(Widget screen, {NavigationDirection? direction}) {
+    if (Platform.isIOS) {
+      Navigator.of(this).push(MaterialPageRoute(builder: (_) => screen));
+    } else {
+      Navigator.push(
+        this,
+        MyCustomRoute(
+          screen: screen,
+          direction: direction ?? NavigationDirection.rightToLeft,
+        ),
+      );
+    }
   }
 
   void pushReplacement(Widget screen, {NavigationDirection? direction}) {
-    Navigator.pushReplacement(
-      this,
-      Platform.isIOS
-          ? CupertinoPageRoute(builder: (_) => screen)
-          : MyCustomRoute(
-              screen: screen,
-              direction: direction ?? NavigationDirection.rightToLeft,
-            ),
-    );
+    if (Platform.isIOS) {
+      Navigator.of(this).pushReplacement(
+        MaterialPageRoute(builder: (_) => screen),
+      );
+    } else {
+      Navigator.pushReplacement(
+        this,
+        Platform.isIOS
+            ? CupertinoPageRoute(builder: (_) => screen)
+            : MyCustomRoute(
+                screen: screen,
+                direction: direction ?? NavigationDirection.rightToLeft,
+              ),
+      );
+    }
   }
 
   void pushAndRemoveUntil(Widget screen, {NavigationDirection? direction}) {
-    Navigator.pushAndRemoveUntil(
-      this,
-      Platform.isIOS
-          ? CupertinoPageRoute(builder: (_) => screen)
-          : MyCustomRoute(
-              screen: screen,
-              direction: direction ?? NavigationDirection.rightToLeft,
-            ),
-      (route) => false,
-    );
+    if (Platform.isIOS) {
+      Navigator.of(this).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => screen),
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        this,
+        MyCustomRoute(
+          screen: screen,
+          direction: direction ?? NavigationDirection.rightToLeft,
+        ),
+        (route) => false,
+      );
+    }
   }
 }
 

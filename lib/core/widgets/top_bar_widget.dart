@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/app_navigator.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +11,12 @@ import '../theme/app_styles.dart';
 class TopBar extends StatelessWidget {
   final double height;
   final String? label, image;
+  final bool withBackButton;
 
   const TopBar({
     super.key,
     required this.height,
+    this.withBackButton = true,
     this.label,
     this.image,
   });
@@ -29,24 +34,43 @@ class TopBar extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: label != null
-            ? Center(
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                  width: context.screenWidth * .6,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(color: Colors.white, width: 3),
-                  ),
-                  child: Text(
-                    label!,
-                    style: AppStyles.style42l,
-                    textAlign: TextAlign.center,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              if (label != null)
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    width: context.screenWidth * .6,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Colors.white, width: 3),
+                    ),
+                    child: Text(
+                      label!,
+                      style: AppStyles.style42l,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-              )
-            : null,
+              if (withBackButton && Platform.isAndroid)
+                Positioned(
+                  left: 10.w,
+                  child: IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                      size: 26.w,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -70,7 +94,7 @@ class _CurvedUpperClipper extends CustomClipper<Path> {
     // The curve goes UP (concave)
     path.quadraticBezierTo(
       size.width / 2, // Control point X (center)
-      size.height - 120, // Control point Y (curves upward)
+      size.height - 120.h, // Control point Y (curves upward)
       0, // End point X (left edge)
       size.height - 20, // End point Y
     );

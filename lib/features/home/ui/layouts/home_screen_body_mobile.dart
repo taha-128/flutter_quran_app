@@ -24,9 +24,7 @@ class HomeScreenBodyMobile extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
-            child: TopBar(
-              height: 160.h,
-            ),
+            child: TopBar(height: 160.h, withBackButton: false),
           ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: context.screenWidth * .1),

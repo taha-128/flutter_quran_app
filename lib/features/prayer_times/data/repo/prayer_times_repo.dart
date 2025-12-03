@@ -1,7 +1,6 @@
-import 'package:intl/intl.dart';
-
 import 'package:flutter_quran_app/core/networking/api_keys.dart';
 import 'package:flutter_quran_app/features/prayer_times/data/models/prayer_times_model.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../core/networking/dio_consumer.dart';
@@ -24,7 +23,11 @@ class PrayerTimesRepo {
     );
 
     final data = response.data['data'] as Map<String, dynamic>;
-    await cachePrayerTimes(data, address: location.address);
+    await cachePrayerTimes(
+      data,
+      latitude: location.position.latitude,
+      longitude: location.position.longitude,
+    );
 
     final model = PrayerTimesResponseModel.fromJson(data, location: location);
 
@@ -33,10 +36,14 @@ class PrayerTimesRepo {
 
   Future<void> cachePrayerTimes(
     Map<String, dynamic> dataForDay, {
-    required String address,
+    required double latitude,
+    required double longitude,
   }) async {
     final dayKey = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    final cacheKey = '$dayKey|$address';
+    // Format coordinates to 4 decimal places for consistent cache keys
+    final latStr = latitude.toStringAsFixed(4);
+    final lngStr = longitude.toStringAsFixed(4);
+    final cacheKey = '$dayKey|$latStr,$lngStr';
     await PrayerTimesCache.putEntry(cacheKey, {
       'timings': dataForDay['timings'],
       'date': dataForDay['date'],
@@ -47,7 +54,10 @@ class PrayerTimesRepo {
     required UserLocationModel location,
   }) async {
     final todayKey = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    final cacheKey = '$todayKey|${location.address}';
+    // Format coordinates to 4 decimal places for consistent cache keys
+    final latStr = location.position.latitude.toStringAsFixed(4);
+    final lngStr = location.position.longitude.toStringAsFixed(4);
+    final cacheKey = '$todayKey|$latStr,$lngStr';
     final cached = await PrayerTimesCache.getEntry(cacheKey);
     if (cached == null) return null;
 

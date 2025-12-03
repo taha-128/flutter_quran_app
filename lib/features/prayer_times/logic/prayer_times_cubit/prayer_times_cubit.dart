@@ -50,15 +50,22 @@ class PrayerTimesCubit extends Cubit<PrayerTimesState> {
             '${place.subAdministrativeArea ?? place.locality}, ${place.administrativeArea ?? place.locality}, ${place.country}';
       }
 
+      String? arabicAddress = arabicPlacemarks.last.street;
+      if (arabicAddress == null || arabicAddress.isEmpty) {
+        if (arabicPlacemarks.last.country != null &&
+            arabicPlacemarks.last.locality != null) {
+          arabicAddress =
+              '${arabicPlacemarks.last.country} - ${arabicPlacemarks.last.locality}';
+        }
+      }
+
       return UserLocationModel(
         position: position,
-        arabicAddress: arabicPlacemarks.last.street ??
-            '${arabicPlacemarks.last.country} - ${arabicPlacemarks.last.locality}',
-        address: address!,
+        arabicAddress: arabicAddress,
+        address: address,
         country: place.country!,
         city: place.administrativeArea ?? place.locality!,
         isoCode: place.isoCountryCode!,
-        method: place.isoCountryCode == 'SA' ? 4 : null,
       );
     } catch (e) {
       emit(

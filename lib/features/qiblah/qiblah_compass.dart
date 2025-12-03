@@ -7,7 +7,6 @@ import 'package:flutter_quran_app/core/helpers/extensions/theme.dart';
 import 'package:flutter_quran_app/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vibration/vibration.dart';
 
@@ -39,17 +38,18 @@ class _QiblahCompassState extends State<QiblahCompass>
     try {
       // Check location service status
       final service = await Geolocator.isLocationServiceEnabled();
-      
+
       // Check permission status using Geolocator (more reliable)
       LocationPermission permission = await Geolocator.checkPermission();
-      
+
       if (!mounted) return;
-      
+
       setState(() {
         serviceEnabled = service;
-        hasPermission = permission == LocationPermission.whileInUse || 
-                       permission == LocationPermission.always;
-        permissionPermanentlyDenied = permission == LocationPermission.deniedForever;
+        hasPermission = permission == LocationPermission.whileInUse ||
+            permission == LocationPermission.always;
+        permissionPermanentlyDenied =
+            permission == LocationPermission.deniedForever;
       });
     } on Exception catch (e) {
       print('error checking location status: $e');
@@ -63,12 +63,12 @@ class _QiblahCompassState extends State<QiblahCompass>
 
   Future<void> _requestPermission() async {
     if (!mounted) return;
-    
+
     // Check current permission status using Geolocator
     LocationPermission permission = await Geolocator.checkPermission();
-    
+
     // If already granted, just refresh
-    if (permission == LocationPermission.whileInUse || 
+    if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {
       await _refreshStatus();
       if (mounted) {
@@ -76,7 +76,7 @@ class _QiblahCompassState extends State<QiblahCompass>
       }
       return;
     }
-    
+
     // If permanently denied, open settings
     if (permission == LocationPermission.deniedForever) {
       if (mounted) {
@@ -84,14 +84,14 @@ class _QiblahCompassState extends State<QiblahCompass>
       }
       return;
     }
-    
+
     // Request permission using Geolocator (more reliable)
     permission = await Geolocator.requestPermission();
     await _refreshStatus();
-    
+
     if (!mounted) return;
-    
-    if (permission == LocationPermission.whileInUse || 
+
+    if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {
       AlertHelper.showSuccessAlert(context, message: 'تم منح صلاحية الموقع.');
     } else if (permission == LocationPermission.deniedForever) {
