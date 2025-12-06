@@ -36,7 +36,7 @@ class ReadersListView extends StatelessWidget {
                   ),
                   Positioned.fill(
                     top:
-                        (context.isTablet ? 215.h : 180.h) + context.topPadding,
+                        (context.isTablet ? 180.h : 180.h) + context.topPadding,
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: RecitersSearchBar(),

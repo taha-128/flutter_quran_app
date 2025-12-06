@@ -12,28 +12,24 @@ class HomeScreenBodyMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: context.screenWidth,
-      height: context.screenHeight,
-      child: Stack(
-        children: [
-          const FullImage(image: AppAssets.imagesWhiteBackground),
-          CustomScrollView(
-            physics: const ClampingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: TopBar(height: 160.h, withBackButton: false),
+    return Stack(
+      children: [
+        const FullImage(image: AppAssets.imagesWhiteBackground),
+        CustomScrollView(
+          physics: const ClampingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: TopBar(height: 160.h, withBackButton: false),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.screenWidth * .1,
               ),
-              SliverPadding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.screenWidth * .1,
-                ),
-                sliver: const MobileHomeSectionsList(),
-              ),
-            ],
-          ),
-        ],
-      ),
+              sliver: const MobileHomeSectionsList(),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

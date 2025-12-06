@@ -26,7 +26,7 @@ class TopBar extends StatelessWidget {
     return ClipPath(
       clipper: _CurvedUpperClipper(),
       child: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: EdgeInsets.only(top: context.topPadding),
         width: context.screenWidth,
         height: height,
         decoration: BoxDecoration(

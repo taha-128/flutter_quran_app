@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/widgets_ext.dart';
 import 'package:flutter_quran_app/core/widgets/top_bar_widget.dart';
 import 'package:flutter_quran_app/features/qiblah/qiblah_compass.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +36,7 @@ class QiblahScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ).withSafeArea(),
     );
   }
 }

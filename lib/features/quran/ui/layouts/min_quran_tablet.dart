@@ -62,8 +62,8 @@ class _MinQuranTabletState extends State<MinQuranTablet> {
 
   @override
   Widget build(BuildContext context) {
-    const flex1 = 1;
-    const flex2 = 3;
+    const flex1 = 2;
+    const flex2 = 7;
     return Column(
       children: [
         const Expanded(

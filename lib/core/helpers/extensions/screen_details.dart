@@ -8,4 +8,7 @@ extension ScreenDetails on BuildContext {
   bool get isTablet => MediaQuery.sizeOf(this).width >= SizeConfig.tablet;
   //TODO: double get topPadding => Platform.isIOS ? MediaQuery.of(this).padding.top : 0;
   double get topPadding => MediaQuery.of(this).padding.top;
+
+  bool get isLandscape =>
+      MediaQuery.of(this).orientation == Orientation.landscape;
 }

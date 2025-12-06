@@ -1,11 +1,15 @@
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
+import 'dart:io';
 
-// extension WidgetsExt on Widget {
-//   Widget withTopPadding(BuildContext context) {
-//     return Padding(
-//       padding: EdgeInsets.only(top: context.topPadding),
-//       child: this,
-//     );
-//   }
-// }
+import 'package:flutter/widgets.dart';
+
+extension WidgetsExt on Widget {
+  Widget withSafeArea() {
+    return SafeArea(
+      top: Platform.isIOS,
+      bottom: false,
+      right: false,
+      left: false,
+      child: this,
+    );
+  }
+}

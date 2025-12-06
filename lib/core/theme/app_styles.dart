@@ -36,6 +36,12 @@ class AppStyles {
     fontFamily: AppConsts.uthmanic,
     color: Colors.black,
   );
+  static TextStyle style12expo = TextStyle(
+    fontFamily: AppConsts.expoArabic,
+    fontSize: 12.sp,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle style22expo = TextStyle(
     fontFamily: AppConsts.expoArabic,
     fontSize: 22.sp,
@@ -54,6 +60,7 @@ class AppStyles {
     color: AppColors.white,
     fontWeight: FontWeight.w800,
   );
+
   static TextStyle style42l = TextStyle(
     fontFamily: AppConsts.expoArabic,
     fontSize: 42.sp,

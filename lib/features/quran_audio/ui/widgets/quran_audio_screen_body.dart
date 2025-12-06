@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quran_app/core/helpers/alert_helper.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/app_navigator.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
-import 'package:flutter_quran_app/core/helpers/functions.dart'
-    show changeBrightness;
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/core/widgets/adaptive_layout.dart';
 import 'package:flutter_quran_app/features/quran_audio/logic/quran_player/quran_player_cubit.dart';
@@ -16,27 +14,10 @@ import '../../../../core/widgets/full_image.dart';
 import 'bottom_sheet_bloc_builder.dart';
 import 'quran_list_view.dart';
 
-class QuranAudioScreenBody extends StatefulWidget {
+class QuranAudioScreenBody extends StatelessWidget {
   const QuranAudioScreenBody({super.key, required this.reciter});
 
   final ReciterModel reciter;
-
-  @override
-  State<QuranAudioScreenBody> createState() => _QuranAudioScreenBodyState();
-}
-
-class _QuranAudioScreenBodyState extends State<QuranAudioScreenBody> {
-  @override
-  void initState() {
-    changeBrightness(Brightness.dark);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    changeBrightness(Brightness.light);
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +31,8 @@ class _QuranAudioScreenBodyState extends State<QuranAudioScreenBody> {
         }
       },
       child: AdaptiveLayout(
-        mobileLayout: (_) => MobileQuranAudioLayout(reciter: widget.reciter),
-        tabletLayout: (_) => TabletQuranAudioLayout(reciter: widget.reciter),
+        mobileLayout: (_) => MobileQuranAudioLayout(reciter: reciter),
+        tabletLayout: (_) => TabletQuranAudioLayout(reciter: reciter),
       ),
     );
   }

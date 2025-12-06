@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/widgets_ext.dart';
 import 'package:flutter_quran_app/features/quran_audio/logic/quran_audio_cubit/quran_cubit.dart';
 import 'package:flutter_quran_app/features/quran_reciters/data/models/reciter_model.dart';
 
@@ -15,7 +16,7 @@ class QuranAudioScreen extends StatelessWidget {
       body: BlocProvider(
         create: (_) => QuranAudioCubit(reciter),
         child: QuranAudioScreenBody(reciter: reciter),
-      ),
+      ).withSafeArea(),
     );
   }
 }

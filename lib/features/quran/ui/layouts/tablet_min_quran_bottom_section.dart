@@ -79,7 +79,7 @@ class TabletMinQuranBottomSection extends StatelessWidget {
           builder: (context, state) {
             return Text(
               state.juzNumber.toJuzName,
-              style: context.headlineLarge,
+              style: context.headlineLarge.copyWith(fontSize: 22.sp),
             );
           },
         ),

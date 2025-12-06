@@ -47,7 +47,7 @@ class _QuranSurahListState extends State<QuranSurahList> {
             SurahTitleBox(
               text: surahArabicTashkel[index],
               selected: index == _currentPage,
-            )
+            ),
           ],
         );
       },

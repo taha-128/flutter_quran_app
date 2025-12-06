@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quran_app/core/helpers/azkar_helper.dart';
-import 'package:flutter_quran_app/core/helpers/functions.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/widgets_ext.dart';
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/core/widgets/custom_text_widget.dart';
 import 'package:flutter_quran_app/features/azkar/data/zekr_model.dart';
@@ -35,13 +35,6 @@ class _AzkarScreenState extends State<AzkarScreen> {
   void initState() {
     super.initState();
     init();
-    changeBrightness(Brightness.dark);
-  }
-
-  @override
-  void dispose() {
-    changeBrightness(Brightness.light);
-    super.dispose();
   }
 
   void _incrementCounter(int index) {
@@ -110,7 +103,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
             )
           ],
         ),
-      ),
+      ).withSafeArea(),
     );
   }
 }

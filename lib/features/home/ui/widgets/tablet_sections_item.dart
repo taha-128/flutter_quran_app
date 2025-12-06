@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
 import 'package:flutter_quran_app/core/theme/app_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,40 @@ class TabletSectionsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (context.isLandscape) {
+      return ZoomTapAnimation(
+        end: .98,
+        onTap: () {
+          section.push(context);
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 6.h),
+          decoration: BoxDecoration(
+            image: const DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(AppAssets.imagesGreenColor),
+            ),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Row(
+            children: [
+              const Spacer(flex: 2),
+              Text(
+                section.title,
+                style: AppStyles.style12expo,
+              ),
+              const Spacer(),
+              VectorGraphic(
+                loader: AssetBytesLoader(section.icon),
+                fit: BoxFit.scaleDown,
+                width: 35.w,
+              ),
+              SizedBox(width: 10.w)
+            ],
+          ),
+        ),
+      );
+    }
     return ZoomTapAnimation(
       end: .98,
       onTap: () {
@@ -33,7 +68,7 @@ class TabletSectionsItem extends StatelessWidget {
             const Spacer(flex: 2),
             Text(
               section.title,
-              style: AppStyles.style28l.copyWith(color: Colors.white),
+              style: AppStyles.style28l.copyWith(fontSize: 22.sp),
             ),
             const Spacer(),
             VectorGraphic(

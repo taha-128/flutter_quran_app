@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quran_app/core/helpers/extensions/screen_details.dart';
+import 'package:flutter_quran_app/core/helpers/extensions/widgets_ext.dart';
 import 'package:flutter_quran_app/core/theme/app_assets.dart';
+import 'package:flutter_quran_app/core/widgets/adaptive_layout.dart';
 import 'package:flutter_quran_app/core/widgets/full_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/widgets/top_bar_widget.dart';
 import 'widgets/mobile_azkar_sections_item.dart';
+import 'widgets/tablet_azkar_sections_item.dart';
 
 class AzkarSectionsScreen extends StatelessWidget {
   const AzkarSectionsScreen({super.key});
@@ -28,8 +31,13 @@ class AzkarSectionsScreen extends StatelessWidget {
                   ),
                   itemCount: AzkarSection.values.length,
                   itemBuilder: (context, index) {
-                    return MobileAzkarSectionsItem(
-                      section: AzkarSection.values[index],
+                    return AdaptiveLayout(
+                      mobileLayout: (context) => MobileAzkarSectionsItem(
+                        section: AzkarSection.values[index],
+                      ),
+                      tabletLayout: (context) => TabletAzkarSectionsItem(
+                        section: AzkarSection.values[index],
+                      ),
                     );
                   },
                   separatorBuilder: (_, __) => SizedBox(height: 20.h),
@@ -38,7 +46,7 @@ class AzkarSectionsScreen extends StatelessWidget {
             ],
           ),
         ],
-      ),
+      ).withSafeArea(),
     );
   }
 }
